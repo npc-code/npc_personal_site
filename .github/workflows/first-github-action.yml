@@ -1,7 +1,7 @@
 name: html check
 on: [push]
 jobs:
-  check-bats-version:
+  check-html-htmlproofer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
