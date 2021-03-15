@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: chabad360/htmlproofer@master
-      - with:
+        with:
           directory: "./"
           # The directory to scan
           arguments: --allow-missing-href
