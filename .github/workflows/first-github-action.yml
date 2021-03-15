@@ -10,6 +10,16 @@ jobs:
           directory: "./"
           # The directory to scan
           arguments: --allow-missing-href --disable-external
+  deploy:
+     runs-on: ubuntu-latest
+     needs: [check-html-htmlproofer]
+     if: success() && github.ref == 'refs/heads/main'
+     steps:
+       - uses: actions/checkout@v2
+       - name: Deploy app
+              run: exit 0
+       
+     
 
 
 
