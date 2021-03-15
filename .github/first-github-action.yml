@@ -1,0 +1,13 @@
+name: html check
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: chabad360/htmlproofer@master
+      - with:
+          directory: "./"
+          # The directory to scan
+          arguments: --allow-missing-href
+
+
