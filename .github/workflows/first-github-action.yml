@@ -17,8 +17,14 @@ jobs:
      steps:
        - uses: actions/checkout@v2
        - name: Deploy app
-         run: exit 0
-       
+         env:
+           access_id: ${{secret.ACCESS_ID}}
+           key: ${{secret.KEY}}
+         - run: mkdir -p ~/.aws
+         - run: echo "[deploymentuser-005240044a15e466]" > ~/.aws/credentials
+         - run: echo "aws_access_key_id=$access_id" >> ~/.aws/credentials
+         - run: echo "aws_secret_access_key=$key" >> ~/.aws/credentials
+         - run: ../scripts/deploy.sh
      
 
 
