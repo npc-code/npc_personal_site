@@ -20,11 +20,11 @@ jobs:
          env:
            access_id: ${{secrets.ACCESS_ID}}
            key: ${{secrets.KEY}}
-         run: mkdir -p ~/.aws
-         run: echo "[deploymentuser-005240044a15e466]" > ~/.aws/credentials
-         run: echo "aws_access_key_id=$access_id" >> ~/.aws/credentials
-         run: echo "aws_secret_access_key=$key" >> ~/.aws/credentials
-         run: ../scripts/deploy.sh
+         - run: mkdir -p ~/.aws
+         - run: echo "[deploymentuser-005240044a15e466]" > ~/.aws/credentials
+         - run: echo "aws_access_key_id=$access_id" >> ~/.aws/credentials
+         - run: echo "aws_secret_access_key=$key" >> ~/.aws/credentials
+         - run: ../scripts/deploy.sh
      
 
 
