@@ -16,21 +16,13 @@ jobs:
           directory: "./"
                 # The directory to scan
           arguments: --allow-missing-href --disable-external
-      
-      #- name: html check
-      #- uses: chabad360/htmlproofer@master
-      #  with:
-      #    directory: "./"
-          # The directory to scan
-      #    arguments: --allow-missing-href --disable-external
-      
-      #- name: deploy
-      #- uses: lbertenasco/s3-deploy@v1
-      #  with:
-      #    folder: "./"
-      #    bucket: ${{ secrets.S3_BUCKET }}
-      #    dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-      #    invalidation: / *
+      - id: deploy
+        uses: lbertenasco/s3-deploy@v1
+        with:
+          folder: "./"
+          bucket: ${{ secrets.S3_BUCKET }}
+          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: / *
        
      
 
