@@ -17,12 +17,12 @@ jobs:
           arguments: --allow-missing-href --disable-external
       - name: deploy
         if: success() && github.ref == 'refs/heads/main'
-          uses: lbertenasco/s3-deploy@v1
-          with:
-            folder: "./"
-            bucket: ${{ secrets.S3_BUCKET }}
-            dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-            invalidation: / *
+          - uses: lbertenasco/s3-deploy@v1
+            with:
+              folder: "./"
+              bucket: ${{ secrets.S3_BUCKET }}
+              dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+              invalidation: / *
        
      
 
