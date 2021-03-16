@@ -1,31 +1,29 @@
 name: html check
 on: [push]
 jobs:
-  check-html-htmlproofer:
+  run:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     steps:
       - uses: actions/checkout@v2
+      - name: html check
       - uses: chabad360/htmlproofer@master
         with:
           directory: "./"
           # The directory to scan
           arguments: --allow-missing-href --disable-external
-  deploy:
-     runs-on: ubuntu-latest
-     needs: [check-html-htmlproofer]
-     if: success() && github.ref == 'refs/heads/main'
-     steps:
-       - uses: actions/checkout@v2
-       - name: Deploy app
-         env:
-           access_id: ${{secrets.ACCESS_ID}}
-           key: ${{secrets.KEY}}
-         run: |
-             mkdir -p ~/.aws
-             echo "[deploymentuser-005240044a15e466]" > ~/.aws/credentials
-             echo "aws_access_key_id=$access_id" >> ~/.aws/credentials
-             echo "aws_secret_access_key=$key" >> ~/.aws/credentials
-             bash ./deploy.sh
+      - name: deploy
+        if: success() && github.ref == 'refs/heads/main'
+          uses: lbertenasco/s3-deploy@v1
+          with:
+            folder: "./"
+            bucket: ${{ secrets.S3_BUCKET }}
+            dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+            invalidation: / *
+       
      
 
 
